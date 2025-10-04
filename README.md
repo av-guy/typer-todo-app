@@ -21,13 +21,11 @@ pip install -r requirements.txt
 
 ## Running the Application
 
-Start the FastAPI app with Uvicorn:
+Use the help command to become familiar with the commands:
 
 ```bash
 python -m task_manager todos --help
 ```
-
-This command will list the available commands for the todos application.
 
 ## Running Tests
 
