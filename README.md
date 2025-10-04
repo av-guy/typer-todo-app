@@ -1,4 +1,4 @@
-# Patients API
+# Task Manager
 
 A Typer application for managing your list of todos.
 
