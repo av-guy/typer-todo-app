@@ -29,7 +29,7 @@ pip install -r requirements.txt
 Use the help command to become familiar with the commands:
 
 ```bash
-python -m task_manager todos --help
+python -m task-manager --help
 ```
 
 ## Running Tests
