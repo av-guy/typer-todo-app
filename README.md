@@ -1,4 +1,4 @@
-# Task Manager
+# Task Manager CLI
 
 A Typer application for managing your list of todos.
 
