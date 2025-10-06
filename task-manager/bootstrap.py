@@ -11,3 +11,7 @@ def initialize():
     from .database import get_db, BASE, ENGINE
     BASE.metadata.create_all(bind=ENGINE)
     di["db_session_context"] = get_db
+
+    from .repositories import SQLAlchemyTaskRepository
+    from .protocols import TaskRepository
+    di[TaskRepository] = SQLAlchemyTaskRepository()
