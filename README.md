@@ -7,15 +7,20 @@ A Typer application for managing your list of todos.
 Clone the repository:
 
 ```bash
-git clone https://github.com/av-guy/typer-todo-app.git 
-cd typer-todo-app 
+git clone https://github.com/av-guy/typer-todo-app.git
+cd typer-todo-app
 ```
 
-Create and activate a virtual environment, then install dependencies:
+Create and activate a virtual environment:
 
 ```bash
-python -m venv venv  
-source venv/bin/activate   # On Windows use: venv\Scripts\activate  
+python -m venv venv
+source venv/bin/activate   # On Windows use: venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
@@ -35,4 +40,4 @@ After creating the virtual environment, run
 pytest
 ```
 
-*No tests are currently available*
+_No tests are currently available_
