@@ -7,7 +7,7 @@ name = "task-manager"
 version = "0.0.1"
 description = "CLI for managing tasks"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "MIT"
 authors = [
   { name="av-guy", email="28807350+av-guy@users.noreply.github.com" },
