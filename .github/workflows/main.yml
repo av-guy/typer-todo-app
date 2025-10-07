@@ -29,10 +29,7 @@ jobs:
       - name: Verify project builds
         run: |
           python -m pip install build
-          python -m build
-      - name: Upload build artifacts
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist-artifacts
-          path: dist/
+          python -m build --wheel --sdist
+          ls -l dist/
+          test -f dist/*.whl
+          test -f dist/*.tar.gz
