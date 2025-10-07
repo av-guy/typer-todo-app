@@ -21,8 +21,8 @@ source venv/bin/activate   # On Windows: venv\Scripts\activate
 Install dependencies:
 
 ```bash
-pip install -r requirements.src.txt     # Core dependencies
-pip install -r requirements.dev.txt     # Dev/test tools
+pip install .           # Core dependencies
+pip install .[dev]      # Dev/test tools
 ```
 
 ## Run the App
