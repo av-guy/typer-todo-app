@@ -7,17 +7,9 @@ from kink import di
 from typer.testing import CliRunner
 
 from src.task_manager.cli import app
-from src.task_manager.repositories import SQLAlchemyTaskRepository
-from src.task_manager.protocols import TaskRepository
-
 from .utils import test_task, Task
 
 runner = CliRunner()
-
-
-@fixture(scope="session", autouse=True)
-def setup_once():
-    di[TaskRepository] = SQLAlchemyTaskRepository()
 
 
 def test_app_run():

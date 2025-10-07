@@ -99,7 +99,7 @@ def create_task(
 @app.command("list")
 def list_tasks(status: STATUS_FILTER = StatusFilter.all):
     """List tasks, optionally filtered by status."""
-    repo = di[TaskRepository]
+    repo: TaskRepository = di[TaskRepository]
 
     if status == StatusFilter.completed:
         tasks = repo.filter_by_status(completed=True)

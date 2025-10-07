@@ -3,15 +3,17 @@ from datetime import datetime
 from contextlib import AbstractContextManager
 
 from sqlalchemy.orm import Session
-from kink import di
+from kink import inject
 
 from ..models import Task
+from ..protocols import TaskRepository
 
 
+@inject(alias=TaskRepository)
 class SQLAlchemyTaskRepository:
-    def __init__(self) -> None:
-        self._db_context: Callable[[
-        ], AbstractContextManager[Session]] = di["db_session_context"]
+    def __init__(self, db_session_context: Callable[[
+    ], AbstractContextManager[Session]]) -> None:
+        self._db_context = db_session_context
 
     def _task_id_check(self, task_id: int) -> None:
         if not isinstance(task_id, int):

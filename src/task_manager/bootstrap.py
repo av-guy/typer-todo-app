@@ -1,4 +1,5 @@
 # pylint: disable=import-outside-toplevel
+# pylint: disable=unused-import
 
 from os import getenv, path
 from pathlib import Path
@@ -20,5 +21,3 @@ def initialize():
     di["db_session_context"] = get_db
 
     from .repositories import SQLAlchemyTaskRepository
-    from .protocols import TaskRepository
-    di[TaskRepository] = SQLAlchemyTaskRepository()

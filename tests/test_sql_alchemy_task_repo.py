@@ -6,15 +6,17 @@
 from typing import Any
 from pytest import mark, raises
 from datetime import datetime, timedelta
+from kink import di
 
 from .utils import test_task, override_get_db
 
 from src.task_manager.repositories import SQLAlchemyTaskRepository
+from src.task_manager.protocols import TaskRepository
 from src.task_manager.models import Task
 
 
 def test_get_task(test_task: Task):
-    repository = SQLAlchemyTaskRepository()
+    repository = di[TaskRepository]
     task_item = repository.get(test_task.id)
 
     assert task_item is not None
@@ -30,7 +32,7 @@ def test_get_task(test_task: Task):
     (-1, ValueError),
 ])
 def test_task_id_check(task_id: str | int, exc_type: Any):
-    repository = SQLAlchemyTaskRepository()
+    repository = di[TaskRepository]
 
     with raises(exc_type):
         repository.get(task_id)         # type: ignore
@@ -40,7 +42,7 @@ def test_task_id_check(task_id: str | int, exc_type: Any):
 
 
 def test_task_complete(test_task: Task):
-    repository = SQLAlchemyTaskRepository()
+    repository = di[TaskRepository]
     repository.complete(test_task.id)
 
     with override_get_db() as db:
@@ -51,7 +53,7 @@ def test_task_complete(test_task: Task):
 
 
 def test_task_list(test_task: Task):
-    repository = SQLAlchemyTaskRepository()
+    repository = di[TaskRepository]
     task_list = repository.list()
 
     assert task_list
@@ -62,7 +64,7 @@ def test_task_list(test_task: Task):
 
 
 def test_task_type_check():
-    repository = SQLAlchemyTaskRepository()
+    repository = di[TaskRepository]
 
     with raises(TypeError):
         repository.add(123)         # type: ignore
@@ -72,7 +74,7 @@ def test_task_type_check():
 
 
 def test_add_task():
-    repository = SQLAlchemyTaskRepository()
+    repository = di[TaskRepository]
 
     task = Task(
         name="TaskName",
@@ -97,7 +99,7 @@ def test_add_task():
 
 
 def test_delete_task(test_task: Task):
-    repository = SQLAlchemyTaskRepository()
+    repository = di[TaskRepository]
 
     task = None
     with override_get_db() as db:
@@ -112,7 +114,7 @@ def test_delete_task(test_task: Task):
 
 
 def test_update_task(test_task: Task):
-    repository = SQLAlchemyTaskRepository()
+    repository = di[TaskRepository]
 
     with override_get_db() as db:
         task = db.get(Task, test_task.id)
@@ -148,7 +150,7 @@ def test_filter_by_status(
     due_after,
     expected_count
 ):
-    repository = SQLAlchemyTaskRepository()
+    repository = di[TaskRepository]
 
     results = repository.filter_by_status(
         completed=completed,
@@ -170,7 +172,7 @@ def test_filter_by_status(
     ],
 )
 def test_filter_by_status_invalid_types(kwargs):
-    repository = SQLAlchemyTaskRepository()
+    repository = di[TaskRepository]
 
     with raises(TypeError):
         repository.filter_by_status(**kwargs)
