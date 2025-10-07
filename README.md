@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/av-guy/typer-todo-app/branch/main/graph/badge.svg)](https://codecov.io/gh/av-guy/typer-todo-app)
+
 # Task Manager CLI
 
 A simple Typer-based command-line app for managing tasks and todos.
