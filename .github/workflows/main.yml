@@ -11,7 +11,7 @@ on:
 
 jobs:
   build-and-test:
-    name: My first job
+    name: build-and-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
