@@ -8,7 +8,7 @@ from kink import di
 def initialize():
     script_path = path.abspath(__file__)
     script_directory = path.dirname(script_path)
-    db_path = Path(script_directory + "./db")
+    db_path = Path(script_directory + "/db")
 
     if not db_path.exists():
         db_path.mkdir()

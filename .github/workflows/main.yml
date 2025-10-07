@@ -28,7 +28,7 @@ jobs:
           pytest -v --maxfail=1 --disable-warnings --color=yes
       - name: Verify project builds
         run: |
-          python -m pipi install build
+          python -m pip install build
           python -m build
       - name: Upload build artifacts
         if: success()
