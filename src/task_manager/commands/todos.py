@@ -150,13 +150,9 @@ def complete_task(task_id: TASK_ID):
     """Mark a task as complete."""
     repo: TaskRepository = di[TaskRepository]
 
-    try:
-        task = repo.get(task_id)
-        if not task:
-            rich_print(f"\n[red]Task {task_id} not found[/red]\n")
-            raise Exit(code=2)
-    except ValueError as exc:
-        rich_print(f"\n[red]{exc}[/red]\n")
+    task = repo.get(task_id)
+    if not task:
+        rich_print(f"\n[red]Task {task_id} not found[/red]\n")
         raise Exit(code=2)
 
     repo.complete(task_id)
@@ -168,13 +164,9 @@ def delete_task(task_id: TASK_ID):
     """Delete a task."""
     repo: TaskRepository = di[TaskRepository]
 
-    try:
-        task = repo.get(task_id)
-        if not task:
-            rich_print(f"\n[red]Task {task_id} not found[/red]\n")
-            raise Exit(code=2)
-    except ValueError as exc:
-        rich_print(f"\n[red]{exc}[/red]\n")
+    task = repo.get(task_id)
+    if not task:
+        rich_print(f"\n[red]Task {task_id} not found[/red]\n")
         raise Exit(code=2)
 
     repo.delete(task)
@@ -192,13 +184,9 @@ def update_task(
     """Update a task."""
     repo: TaskRepository = di[TaskRepository]
 
-    try:
-        task = repo.get(task_id)
-        if not task:
-            rich_print(f"\n[red]Task {task_id} not found[/red]\n")
-            raise Exit(code=2)
-    except ValueError as exc:
-        rich_print(f"\n[red]{exc}[/red]\n")
+    task = repo.get(task_id)
+    if not task:
+        rich_print(f"\n[red]Task {task_id} not found[/red]\n")
         raise Exit(code=2)
 
     if name:

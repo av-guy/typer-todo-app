@@ -34,6 +34,8 @@ def test_task_id_check(task_id: str | int, exc_type: Any):
 
     with raises(exc_type):
         repository.get(task_id)         # type: ignore
+
+    with raises(exc_type):
         repository.complete(task_id)    # type: ignore
 
 
@@ -53,7 +55,7 @@ def test_task_list(test_task: Task):
     task_list = repository.list()
 
     assert task_list
-    assert len(task_list) == 2
+    assert len(task_list) == 3
 
     assert task_list[0].completed is False
     assert task_list[1].completed is True
@@ -64,6 +66,8 @@ def test_task_type_check():
 
     with raises(TypeError):
         repository.add(123)         # type: ignore
+
+    with raises(TypeError):
         repository.delete(456)      # type: ignore
 
 
@@ -132,9 +136,9 @@ def test_update_task(test_task: Task):
     "completed, due_before, due_after, expected_count",
     [
         (True, None, None, 1),
-        (False, None, None, 1),
+        (False, None, None, 2),
         (None, datetime.now() + timedelta(days=1), None, 2),
-        (None, None, datetime.now() - timedelta(days=1), 2)
+        (None, None, datetime.now() - timedelta(days=1), 3)
     ],
 )
 def test_filter_by_status(

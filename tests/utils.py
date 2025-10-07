@@ -6,7 +6,7 @@
 from os import path
 from pathlib import Path
 from contextlib import contextmanager
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from pytest import fixture
 from kink import di
@@ -17,10 +17,9 @@ from sqlalchemy.pool import StaticPool
 
 SCRIPT_PATH = path.abspath(__file__)
 SCRIPT_DIR = path.dirname(SCRIPT_PATH)
-DB_PATH = Path(SCRIPT_DIR + "/db")
 
-if not DB_PATH.exists():
-    DB_PATH.mkdir()
+DB_PATH = Path(SCRIPT_DIR + "/db")
+DB_PATH.mkdir(exist_ok=True)
 
 SQLALCHEMY_DATABASE_URL = f"sqlite:///{SCRIPT_DIR}/db/test_db.db"
 
@@ -77,6 +76,16 @@ def test_task():
     )
 
     db.add(task_2)
+    db.commit()
+
+    task_3 = Task(
+        name="Go to the store",
+        description="Need food",
+        completed=False,
+        due_date=datetime.now() + timedelta(days=1)
+    )
+
+    db.add(task_3)
     db.commit()
 
     yield task

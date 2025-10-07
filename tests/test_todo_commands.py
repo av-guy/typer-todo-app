@@ -31,6 +31,24 @@ def test_list_tasks(test_task: Task):
     assert result.exit_code == 0
     assert "Water" in result.output
 
+    result = runner.invoke(app, ["list", "--status", "completed"])
+    assert result.exit_code == 0
+    assert "Take the cat" in result.output
+
+    result = runner.invoke(app, ["list", "--status", "overdue"])
+    assert result.exit_code == 0
+    assert "Water" in result.output
+
+    result = runner.invoke(app, ["list", "--status", "pending"])
+    assert result.exit_code == 0
+    assert "Go to the store" in result.output
+
+
+def test_list_tasks_no_tasks():
+    result = runner.invoke(app, ["list"])
+    assert result.exit_code == 0
+    assert "No tasks found" in result.output
+
 
 def test_complete_task(test_task: Task):
     result = runner.invoke(app, ["complete", "1"])
@@ -105,6 +123,7 @@ def test_update_task(test_task: Task):
 
     assert result.exit_code == 0
     assert f"Task {test_task.id} updated" in result.output
+
 
 def test_update_bad_task_id(test_task: Task):
     result = runner.invoke(
