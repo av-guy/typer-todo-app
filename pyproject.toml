@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "task-manager"
+version = "0.0.1"
+description = "CLI for managing tasks"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+authors = [
+  { name="av-guy", email="28807350+av-guy@users.noreply.github.com" },
+]
+dependencies = [
+  "typer==0.19.2",
+  "SQLAlchemy==2.0.43",
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+
+[project.scripts]
+task-manager = "task_manager.__main__:app"

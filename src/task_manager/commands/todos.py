@@ -1,16 +1,18 @@
+from sys import stderr
+
 from typing import Annotated
 from enum import Enum
 from datetime import datetime
 
 from kink import di
-from typer import Typer, Argument, Option
+from typer import Typer, Argument, Option, Exit
 from rich import print as rich_print
 from rich.table import Table
 
 from ..models import Task
 from ..protocols import TaskRepository
 
-app = Typer()
+app = Typer(name="task-manager")
 
 
 class StatusFilter(str, Enum):
@@ -22,7 +24,10 @@ class StatusFilter(str, Enum):
 
 TASK_ID = Annotated[
     int,
-    Argument(help="The ID of the task.")
+    Argument(
+        help="The ID of the task.",
+        min=1
+    )
 ]
 
 TASK_NAME = Annotated[
@@ -145,10 +150,14 @@ def complete_task(task_id: TASK_ID):
     """Mark a task as complete."""
     repo: TaskRepository = di[TaskRepository]
 
-    task = repo.get(task_id)
-    if not task:
-        rich_print(f"\n[red]Task {task_id} not found[/red]\n")
-        return
+    try:
+        task = repo.get(task_id)
+        if not task:
+            rich_print(f"\n[red]Task {task_id} not found[/red]\n")
+            raise Exit(code=2)
+    except ValueError as exc:
+        rich_print(f"\n[red]{exc}[/red]\n")
+        raise Exit(code=2)
 
     repo.complete(task_id)
     rich_print(f"\n[green]Task {task_id} marked complete[/green]\n")
@@ -159,10 +168,14 @@ def delete_task(task_id: TASK_ID):
     """Delete a task."""
     repo: TaskRepository = di[TaskRepository]
 
-    task = repo.get(task_id)
-    if not task:
-        rich_print(f"\n[red]Task {task_id} not found[/red]\n")
-        return
+    try:
+        task = repo.get(task_id)
+        if not task:
+            rich_print(f"\n[red]Task {task_id} not found[/red]\n")
+            raise Exit(code=2)
+    except ValueError as exc:
+        rich_print(f"\n[red]{exc}[/red]\n")
+        raise Exit(code=2)
 
     repo.delete(task)
     rich_print(f"\n[green]Task {task_id} deleted[/green]\n")
@@ -179,10 +192,14 @@ def update_task(
     """Update a task."""
     repo: TaskRepository = di[TaskRepository]
 
-    task = repo.get(task_id)
-    if not task:
-        rich_print(f"\n[red]Task {task_id} not found[/red]\n")
-        return
+    try:
+        task = repo.get(task_id)
+        if not task:
+            rich_print(f"\n[red]Task {task_id} not found[/red]\n")
+            raise Exit(code=2)
+    except ValueError as exc:
+        rich_print(f"\n[red]{exc}[/red]\n")
+        raise Exit(code=2)
 
     if name:
         task.name = name
@@ -193,5 +210,4 @@ def update_task(
     if complete:
         task.completed = complete
 
-    repo.commit()
     rich_print(f"\n[green]Task {task_id} updated[/green]\n")

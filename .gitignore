@@ -10,5 +10,8 @@ venv/
 .env/
 .venv/
 
+*/**/db
+dist/
+
 .vscode/
 .idea/

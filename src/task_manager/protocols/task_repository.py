@@ -16,6 +16,9 @@ class TaskRepository(Protocol):
     def delete(self, task: Task) -> None:
         ...
 
+    def update(self, task: Task) -> None:
+        ...
+
     def complete(self, task_id: int) -> None:
         ...
 

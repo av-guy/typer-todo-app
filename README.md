@@ -1,10 +1,10 @@
 # Task Manager CLI
 
-A Typer application for managing your list of todos.
+A simple Typer-based command-line app for managing tasks and todos.
 
 ## Setup
 
-Clone the repository:
+Clone the repo and enter the directory:
 
 ```bash
 git clone https://github.com/av-guy/typer-todo-app.git
@@ -15,29 +15,54 @@ Create and activate a virtual environment:
 
 ```bash
 python -m venv venv
-source venv/bin/activate   # On Windows use: venv\Scripts\activate
+source venv/bin/activate   # On Windows: venv\Scripts\activate
 ```
 
 Install dependencies:
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.src.txt     # Core dependencies
+pip install -r requirements.dev.txt     # Dev/test tools
 ```
 
-## Running the Application
+## Run the App
 
-Use the help command to become familiar with the commands:
+Use the help command to explore available commands:
 
 ```bash
-python -m task-manager --help
+python -m src.task_manager --help
 ```
 
-## Running Tests
-
-After creating the virtual environment, run
+## Run Tests
 
 ```bash
 pytest
 ```
 
-_No tests are currently available_
+## Build and Install
+
+Install the build tool:
+
+```bash
+python -m pip install --upgrade build
+```
+
+Build the package:
+
+```bash
+python -m build
+```
+
+Install from the generated archive:
+
+```bash
+pip install dist/task_manager-0.0.1.tar.gz
+```
+
+After installation, run the CLI:
+
+```bash
+task-manager --help
+```
+
+_If you follow these instructions, this application will only be available from within your virtual environment_
