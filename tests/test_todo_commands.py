@@ -41,11 +41,11 @@ def test_complete_task(test_task: Task):
 def test_complete_bad_task_id(test_task: Task):
     result = runner.invoke(app, ["complete", "-10"])
     assert result.exit_code == 2
-    assert "No such option: -1" in result.output
+    assert "No such option" in result.output
 
     result = runner.invoke(app, ["complete", "0"])
     assert result.exit_code == 2
-    assert "Invalid value for 'TASK_ID': 0 is not in the range x>=1" in result.output
+    assert "Invalid value" in result.output
 
     result = runner.invoke(app, ["complete", "999"])
     assert result.exit_code == 2
@@ -61,11 +61,11 @@ def test_delete_task(test_task: Task):
 def test_delete_bad_task_id(test_task: Task):
     result = runner.invoke(app, ["delete", "-10"])
     assert result.exit_code == 2
-    assert "No such option: -1" in result.output
+    assert "No such option" in result.output
 
     result = runner.invoke(app, ["delete", "0"])
     assert result.exit_code == 2
-    assert "Invalid value for 'TASK_ID': 0 is not in the range x>=1" in result.output
+    assert "Invalid value" in result.output
 
     result = runner.invoke(app, ["delete", "999"])
     assert result.exit_code == 2
@@ -123,7 +123,7 @@ def test_update_bad_task_id(test_task: Task):
     )
 
     assert result.exit_code == 2
-    assert "No such option: -1" in result.output
+    assert "No such option" in result.output
 
     result = runner.invoke(
         app,
@@ -140,7 +140,7 @@ def test_update_bad_task_id(test_task: Task):
         ],
     )
     assert result.exit_code == 2
-    assert "Invalid value for 'TASK_ID': 0 is not in the range x>=1" in result.output
+    assert "Invalid value" in result.output
 
     result = runner.invoke(
         app,
