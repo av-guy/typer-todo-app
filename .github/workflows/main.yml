@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: My first job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - name: Install dependencies
+        run: |
+          python -m pip install -r requirements.dev.txt
+          python -m pip install -r requirements.src.txt
+      - name: Run tests
+        run: |
+          pytest -v --maxfail=1 --disable-warnings --color=yes
+      - name: Verify project builds
+        run: |
+          python -m pipi install build
+          python -m build
+      - name: Upload build artifacts
+        if: success()
+        uses: actions/upload-artifacts@v4
+        with:
+          name: dist-artifacts
+          path: dist/
