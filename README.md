@@ -68,3 +68,17 @@ task-manager --help
 ```
 
 _If you follow these instructions, this application will only be available from within your virtual environment_
+
+# Installing From GitHub
+
+Without cloning the repository, you can run:
+
+```bash
+pip install git+https://github.com/av-guy/typer-todo-app
+```
+
+After installation, run the CLI:
+
+```bash
+task-manager --help
+```
